@@ -323,6 +323,7 @@
     <Content Include="css\plugins\pe-icon-7-stroke.css" />
     <Content Include="css\plugins\simple-line-icons.css" />
     <Content Include="css\plugins\slick.min.css" />
+    <Content Include="DATABASE TEST DATA\TestData.sql" />
     <Content Include="error404.html" />
     <Content Include="fonts\bicon.svg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
