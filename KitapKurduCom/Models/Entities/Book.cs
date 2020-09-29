@@ -37,6 +37,9 @@ namespace KitapKurdu.UI.Models.Entity
         [Display(Name = "Yayın Tarihi")]
         public DateTime PublishDate { get; set; }
 
+        
+        public bool? IsDeleted { get; set; }
+
         [ForeignKey("CoverType")]
         public int CoverTypeID { get; set; }
         public virtual CoverType CoverType { get; set; }

@@ -9,7 +9,7 @@ namespace KitapKurdu.UI.Models.DatabaseContext
 {
     public class DatabaseContext : DbContext
     {
-        public DatabaseContext() : base("Connection")
+        public DatabaseContext() : base("KitapKurduCom.Properties.Settings.ConnString")
         {
 
         }

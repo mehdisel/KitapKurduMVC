@@ -12,7 +12,7 @@ namespace KitapKurdu.UI.Models.Entity
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+
         [Display(Name = "Başlık")]
         public string Title { get; set; }
         [Required]
