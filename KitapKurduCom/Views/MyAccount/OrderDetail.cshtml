@@ -1,0 +1,105 @@
+﻿@using KitapKurdu.UI.Models.Entity
+@using PagedList
+@using PagedList.Mvc
+@model  KitapKurdu.UI.Models.Entity.Order
+@{
+    ViewBag.Title = "OrderDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal totalPrice = 0;
+    int quantity = 0;
+}
+
+@section Styles
+{
+    <style>
+        .container {
+            margin-top: 120px;
+            padding-bottom: 100px;
+            width: 1100px;
+        }
+    </style>
+}
+@{
+    int id = 0;
+    if (Session["kullanici"] != null)
+    {
+
+        id = (int)Session["kullanici"];
+    }
+    else
+    {
+        Response.Redirect("/Account");
+    }
+}
+
+<div class="container">
+    @Html.ActionLink("Siparişlere Geri Dön", "Orders", new { id = id })
+    <table class="table" style="margin-top:20px">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipper.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CargoNumber)
+            </th>
+            <th>
+                TOPLAM TUTAR
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.OrderDate)
+            </td>
+            <td>@Html.DisplayFor(model => model.OrderTime)</td>
+            <td>@Html.DisplayFor(model => model.Shipper.CompanyName)</td>
+            <td>@Html.DisplayFor(model => model.CargoNumber)</td>
+            @foreach (var item in Model.OrderDetails)
+            {
+                quantity += item.Quantity;
+                totalPrice += item.UnitPrice * item.Quantity;
+
+            }
+            <td>@totalPrice.ToString("0.00 ₺")</td>
+        </tr>
+    </table>
+    <br>
+    <b>KİTAPLAR</b>
+    <br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>KİTAP ADI</th>
+                <th>ADET</th>
+                <th>BİRİM FİYAT</th>
+            </tr>
+        </thead>
+        @{
+            int sayac = 1;
+
+            foreach (var item in Model.OrderDetails)
+            {
+                <tr>
+                    <td><img src="@item.Book.BookImages.Where(x=>x.Book.ID==@item.BookID).Select(x=>x.ImageUrl).FirstOrDefault()" width="60" height="85" /></td>
+                    <td>  @item.Book.BookName</td>
+                    <td> @item.Quantity</td>
+                    <td> @item.UnitPrice.ToString("0.00 ₺")</td>
+                </tr>
+            }
+        }
+    </table>
+    <br />
+
+</div>
